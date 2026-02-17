@@ -5,6 +5,7 @@ interface Props {
   loading: boolean;
   error: string | null;
   actionLoading: string | null;
+  subscriptionMap: Record<string, boolean>;
   onSubscribe: (fundId: string) => void;
   onCancel: (fundId: string) => void;
 }
@@ -15,6 +16,7 @@ export const FundsList = ({
   error,
   actionLoading,
   onSubscribe,
+  subscriptionMap,
   onCancel,
 }: Props) => {
   if (loading) return <div>Loading funds...</div>;
@@ -22,27 +24,28 @@ export const FundsList = ({
 
   return (
     <ul>
-      {funds.map((fund) => (
-        <li key={fund._id}>
-          <div>
-            {fund.name} - Min: {fund.minimumAmount}
-          </div>
+      {funds.map((fund) => {
+        const isSubscribed = subscriptionMap[fund._id];
 
-          <button
-            onClick={() => onSubscribe(fund._id)}
-            disabled={actionLoading === fund._id}
-          >
-            Subscribe
-          </button>
+        return (
+          <li key={fund._id}>
+            <div>
+              {fund.name} - Min: {fund.minimumAmount}
+            </div>
 
-          <button
-            onClick={() => onCancel(fund._id)}
-            disabled={actionLoading === fund._id}
-          >
-            Cancel
-          </button>
-        </li>
-      ))}
+            <button
+              onClick={() =>
+                isSubscribed
+                  ? onCancel(fund._id)
+                  : onSubscribe(fund._id)
+              }
+              disabled={actionLoading === fund._id}
+            >
+              {isSubscribed ? "Cancel" : "Subscribe"}
+            </button>
+          </li>
+        );
+      })}
     </ul>
   );
 };

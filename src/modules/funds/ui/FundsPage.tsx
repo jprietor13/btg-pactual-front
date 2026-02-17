@@ -9,6 +9,7 @@ export const FundsPage = () => {
     actionLoading,
     subscribe,
     cancel,
+    subscriptionMap
   } = useFunds();
 
   return (
@@ -20,6 +21,7 @@ export const FundsPage = () => {
         loading={loading}
         error={error}
         actionLoading={actionLoading}
+        subscriptionMap={subscriptionMap}
         onSubscribe={subscribe}
         onCancel={cancel}
       />
