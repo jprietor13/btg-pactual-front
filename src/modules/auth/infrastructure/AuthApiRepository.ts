@@ -10,4 +10,9 @@ export class AuthApiRepository implements AuthRepository {
 
     return data.access_token;
   }
+
+  async me() {
+    const { data } = await httpClient.get("/auth/me");
+    return data;
+  }
 }
