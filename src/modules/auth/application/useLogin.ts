@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AuthApiRepository } from "../infrastructure/AuthApiRepository";
+import { useAuth } from "@/core/providers/AuthProvider";
 import axios from "axios";
 
 export const useLogin = () => {
@@ -7,7 +8,7 @@ export const useLogin = () => {
   const [error, setError] = useState<string | null>(null);
 
   const repository = new AuthApiRepository();
-
+  const { login: setAuthToken } = useAuth();
   const login = async (email: string, password: string) => {
     try {
       setLoading(true);
@@ -15,9 +16,10 @@ export const useLogin = () => {
 
       const token = await repository.login(email, password);
 
-      localStorage.setItem("access_token", token);
+      setAuthToken(token)
 
       return true;
+      
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         setError(err.response?.data?.message ?? "Login failed");
