@@ -1,6 +1,7 @@
 export type TransactionType = "SUBSCRIBE" | "CANCEL";
 
 export interface Transaction {
+  id: string;
   transactionId: string;
   userId: string;
   fundId: string;

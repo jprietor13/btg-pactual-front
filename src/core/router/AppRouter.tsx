@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoginPage } from "@/modules/auth/ui/LoginPage";
-import FundsPage from "@/modules/funds/ui/FundsPage";
+import { FundsPage } from "@/modules/funds/ui/FundsPage";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { TransactionsPage } from "@/modules/transactions/ui/TransactionsPage";
 
 export const AppRouter = () => {
   return (
@@ -13,9 +14,17 @@ export const AppRouter = () => {
           element={
             <ProtectedRoute>
               <FundsPage />
-            </ProtectedRoute>   
+            </ProtectedRoute>
           }
-          />
+        />
+        <Route
+          path="/transactions"
+          element={
+            <ProtectedRoute>
+              <TransactionsPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

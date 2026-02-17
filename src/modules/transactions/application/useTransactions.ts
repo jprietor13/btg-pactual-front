@@ -8,6 +8,12 @@ export const useTransactions = () => {
 
   const repository = new TransactionsApiRepository();
 
+  const sortedTransactions = [...transactions].sort(
+  (a, b) =>
+    new Date(b.createdAt).getTime() -
+    new Date(a.createdAt).getTime()
+);
+
   const fetchTransactions = async () => {
     try {
       setLoading(true);
@@ -23,7 +29,7 @@ export const useTransactions = () => {
   }, []);
 
   return {
-    transactions,
+    transactions: sortedTransactions,
     loading,
     refetch: fetchTransactions,
   };
