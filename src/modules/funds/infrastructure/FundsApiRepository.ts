@@ -7,4 +7,12 @@ export class FundsApiRepository implements FundsRepository {
     const { data } = await httpClient.get("/funds");
     return data;
   }
+
+  async subscribe(fundId: string): Promise<void> {
+    await httpClient.post(`/funds/subscribe/${fundId}`);
+  }
+
+  async cancel(fundId: string): Promise<void> {
+    await httpClient.post(`/funds/cancel/${fundId}`);
+  }
 }
