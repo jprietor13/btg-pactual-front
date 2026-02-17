@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoginPage } from "@/modules/auth/ui/LoginPage";
-import FundsPage from "@/modules/funds/FundsPage";
+import FundsPage from "@/modules/funds/ui/FundsPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 
 export const AppRouter = () => {
