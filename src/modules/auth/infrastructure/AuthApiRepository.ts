@@ -11,6 +11,15 @@ export class AuthApiRepository implements AuthRepository {
     return data.access_token;
   }
 
+  async register(data: {
+    name: string;
+    email: string;
+    password: string;
+    notificationPreference: string;
+  }) {
+    await httpClient.post("/auth/register", data);
+  }
+
   async me() {
     const { data } = await httpClient.get("/auth/me");
     return data;

@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import { useLogin } from "../application/useLogin"
+import { Link, useNavigate } from "react-router-dom";
+import { useLogin } from "../application/useLogin";
 import { LoginForm } from "./LoginForm";
 import { useEffect } from "react";
 import { useAuth } from "@/core/providers/AuthProvider";
@@ -10,15 +10,20 @@ export const LoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(isAuthenticated) {
-      navigate("/funds")
+    if (isAuthenticated) {
+      navigate("/funds");
     }
   }, [isAuthenticated, navigate]);
   return (
-    <LoginForm
-      onSubmit={login}
-      loading={loading}
-      error={error}
-    />
+    <>
+      <LoginForm
+        onSubmit={login}
+        loading={loading}
+        error={error}
+      />
+      <Link to="/register" className="text-blue-600 text-sm">
+        Crear cuenta
+      </Link>
+    </>
   );
 };
