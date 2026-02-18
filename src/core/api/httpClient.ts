@@ -7,6 +7,8 @@ export const httpClient = axios.create({
   },
 });
 
+console.log(import.meta.env.VITE_API_URL);
+
 // Interceptor para JWT
 httpClient.interceptors.request.use((config) => {
   const token = localStorage.getItem("access_token");

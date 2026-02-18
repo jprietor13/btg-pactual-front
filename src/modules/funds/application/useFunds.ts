@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import type { Fund } from "../domain/Fund";
 import { FundsApiRepository } from "../infrastructure/FundsApiRepository";
 import { useTransactions } from "@/modules/transactions/application/useTransactions";
@@ -12,13 +12,15 @@ export const useFunds = () => {
 
   const { transactions, refetch: refetchTransactions } = useTransactions();
 
-  const subscriptionMap = transactions.reduce<Record<string, boolean>>(
+const subscriptionMap = useMemo(() => {
+  return transactions.reduce<Record<string, boolean>>(
     (acc, transaction) => {
       acc[transaction.fundId] = transaction.type === "SUBSCRIBE";
       return acc;
     },
-    {},
+    {}
   );
+}, [transactions]);
 
   const repository = new FundsApiRepository();
 
@@ -71,6 +73,7 @@ export const useFunds = () => {
       await repository.cancel(fundId);
       await fetchFunds();
       await refetchTransactions();
+      console.log("Transactions después de cancelar:", transactions);
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         setError(err.response?.data?.message ?? "Error canceling");
