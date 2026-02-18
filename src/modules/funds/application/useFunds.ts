@@ -3,6 +3,7 @@ import type { Fund } from "../domain/Fund";
 import { FundsApiRepository } from "../infrastructure/FundsApiRepository";
 import { useTransactions } from "@/modules/transactions/application/useTransactions";
 import axios from "axios";
+import { useAuth } from "@/core/providers/AuthProvider";
 
 export const useFunds = () => {
   const [funds, setFunds] = useState<Fund[]>([]);
@@ -11,16 +12,32 @@ export const useFunds = () => {
   const [error, setError] = useState<string | null>(null);
 
   const { transactions, refetch: refetchTransactions } = useTransactions();
+  const { refreshUser } = useAuth();
 
-const subscriptionMap = useMemo(() => {
-  return transactions.reduce<Record<string, boolean>>(
-    (acc, transaction) => {
-      acc[transaction.fundId] = transaction.type === "SUBSCRIBE";
-      return acc;
-    },
-    {}
-  );
-}, [transactions]);
+  const subscriptionMap = useMemo(() => {
+    const map: Record<string, boolean> = {};
+
+    const latestByFund: Record<string, any> = {};
+
+    transactions.forEach((transaction) => {
+      const existing = latestByFund[transaction.fundId];
+
+      if (
+        !existing ||
+        new Date(transaction.createdAt) >
+        new Date(existing.createdAt)
+      ) {
+        latestByFund[transaction.fundId] = transaction;
+      }
+    });
+
+    Object.values(latestByFund).forEach((transaction: any) => {
+      map[transaction.fundId] =
+        transaction.type === "SUBSCRIBE";
+    });
+
+    return map;
+  }, [transactions]);
 
   const repository = new FundsApiRepository();
 
@@ -52,6 +69,7 @@ const subscriptionMap = useMemo(() => {
       await repository.subscribe(fundId);
       await fetchFunds();
       await refetchTransactions();
+      await refreshUser()
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         setError(err.response?.data?.message ?? "Error subscribing");
@@ -73,6 +91,7 @@ const subscriptionMap = useMemo(() => {
       await repository.cancel(fundId);
       await fetchFunds();
       await refetchTransactions();
+      await refreshUser()
       console.log("Transactions después de cancelar:", transactions);
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {

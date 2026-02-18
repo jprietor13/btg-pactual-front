@@ -15,6 +15,7 @@ interface AuthContextValue {
   isInitializing: boolean;
   login: (token: string) => void;
   logout: () => void;
+  refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -66,6 +67,17 @@ export const AuthProvider = ({ children }: Props) => {
     setUser(null);
   };
 
+  const refreshUser = async () => {
+  if (!token) return;
+
+  try {
+    const userData = await repository.me();
+    setUser(userData);
+  } catch {
+    logout();
+  }
+};
+
   return (
     <AuthContext.Provider
       value={{
@@ -75,6 +87,7 @@ export const AuthProvider = ({ children }: Props) => {
         isInitializing,
         login,
         logout,
+        refreshUser
       }}
     >
       {children}
