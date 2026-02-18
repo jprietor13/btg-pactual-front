@@ -22,10 +22,10 @@ export const TransactionsTable = ({
       <table className="min-w-full text-sm">
         <thead className="bg-gray-100 text-gray-600 uppercase text-xs">
           <tr>
-            <th className="px-4 py-3 text-left">Fund</th>
-            <th className="px-4 py-3 text-left">Type</th>
-            <th className="px-4 py-3 text-left">Amount</th>
-            <th className="px-4 py-3 text-left">Date</th>
+            <th className="px-4 py-3 text-left">Fondo</th>
+            <th className="px-4 py-3 text-left">Tipo</th>
+            <th className="px-4 py-3 text-left">Saldo</th>
+            <th className="px-4 py-3 text-left">Fecha</th>
           </tr>
         </thead>
         <tbody>

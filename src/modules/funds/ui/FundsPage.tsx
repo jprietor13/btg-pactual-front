@@ -1,6 +1,6 @@
+import { Link } from "react-router-dom";
 import { useFunds } from "../application/useFunds";
 import { FundsList } from "./FundsList";
-import { Link } from "react-router-dom";
 
 export const FundsPage = () => {
   const {
@@ -27,7 +27,7 @@ export const FundsPage = () => {
 
     <Link
       to="/transactions"
-      className="bg-white border border-blue-600 text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transition shadow-sm"
+      className="bg-white border border-red-600 text-red-600 px-4 py-2 rounded-lg font-medium hover:bg-red-50 transition shadow-sm"
     >
       Ver transacciones
     </Link>

@@ -49,10 +49,10 @@ export const FundsList = ({
           className={`px-4 py-2 rounded text-sm font-medium transition ${
             isSubscribed
               ? "bg-gray-200 hover:bg-gray-300 text-gray-800"
-              : "bg-blue-600 hover:bg-blue-700 text-white"
+              : "bg-red-600 hover:bg-red-700 text-white"
           }`}
         >
-          {isSubscribed ? "Cancel" : "Subscribe"}
+          {isSubscribed ? "Cancelar" : "Suscribirse"}
         </button>
       </li>
     );

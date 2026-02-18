@@ -12,7 +12,7 @@ export const LoginForm = ({ onSubmit, loading, error }: Props) => {
   const [password, setPassword] = useState("");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-gray-100 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
 
         {/* Header */}
@@ -41,7 +41,7 @@ export const LoginForm = ({ onSubmit, loading, error }: Props) => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition"
+              className="w-full px-4 py-3 border rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition"
               placeholder="usuario@email.com"
               required
             />
@@ -55,7 +55,7 @@ export const LoginForm = ({ onSubmit, loading, error }: Props) => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition"
+              className="w-full px-4 py-3 border rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition"
               placeholder="••••••••"
               required
             />
