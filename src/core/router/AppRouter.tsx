@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LoginPage } from "@/modules/auth/ui/LoginPage";
 import { FundsPage } from "@/modules/funds/ui/FundsPage";
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -12,30 +12,21 @@ export const AppRouter = () => {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+
         <Route
           element={
             <ProtectedRoute>
               <ProtectedLayout />
             </ProtectedRoute>
           }
-        ></Route>
-        <Route
-          path="/funds"
-          element={
-            <ProtectedRoute>
-              <FundsPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/transactions"
-          element={
-            <ProtectedRoute>
-              <TransactionsPage />
-            </ProtectedRoute>
-          }
-        />
+        >
+          <Route path="/funds" element={<FundsPage />} />
+          <Route path="/transactions" element={<TransactionsPage />} />
+        </Route>
+
+        <Route path="/" element={<Navigate to="/funds" replace />} />
       </Routes>
     </BrowserRouter>
+
   );
 };
