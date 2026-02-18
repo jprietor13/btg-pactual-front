@@ -32,7 +32,7 @@ export const RegisterForm = ({
     >
       <input
         className="w-full border p-2 rounded"
-        placeholder="Name"
+        placeholder="Nombre"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
@@ -47,25 +47,31 @@ export const RegisterForm = ({
       <input
         type="password"
         className="w-full border p-2 rounded"
-        placeholder="Password"
+        placeholder="Contraseña"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <select
-        className="w-full border p-2 rounded"
-        value={notificationPreference}
-        onChange={(e) => setNotificationPreference(e.target.value)}
-      >
-        <option value="EMAIL">Email</option>
-        <option value="SMS">SMS</option>
-      </select>
+    
+        <label className="block text-sm font-medium text-gray-500 mb-2">
+          Tipo de notificación
+        </label>
+
+        <select
+          className="w-full px-4 py-2 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          value={notificationPreference}
+          onChange={(e) => setNotificationPreference(e.target.value)}
+        >
+          <option value="EMAIL">Email</option>
+          <option value="SMS">SMS</option>
+        </select>
+      
 
       <button
-        className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+        className="w-full bg-red-600 text-white p-2 rounded hover:bg-red-700"
         disabled={loading}
       >
-        {loading ? "Creating..." : "Register"}
+        {loading ? "Creando..." : "Registrarse"}
       </button>
 
       {error && <p className="text-red-500 text-sm">{error}</p>}

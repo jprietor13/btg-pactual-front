@@ -27,7 +27,7 @@ export const RegisterPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="bg-white p-8 shadow rounded w-full max-w-md">
-        <h1 className="text-xl font-semibold mb-6">Register</h1>
+        <h1 className="text-xl font-semibold mb-6">Registro</h1>
 
         <RegisterForm
           onSubmit={handleRegister}
@@ -35,10 +35,13 @@ export const RegisterPage = () => {
           error={error}
         />
 
-        <p className="text-sm mt-4">
-          Already have an account?{" "}
-          <Link to="/login" className="text-blue-600">
-            Login
+        <p className="text-sm text-center mt-6 text-gray-600">
+          ¿Ya tienes una cuenta?{" "}
+          <Link
+            to="/login"
+            className="text-red-600 font-medium hover:underline ml-2"
+          >
+            Ingresar
           </Link>
         </p>
       </div>
